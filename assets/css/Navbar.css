@@ -1,0 +1,169 @@
+.NavBar{
+    background-color: rgb(40, 44, 52);
+    width: 100%;
+    height: 60px;
+    position: relative;
+}
+.navBarSearchBar{
+    height: 30px;
+    width: 220px;
+    position: absolute;
+    right: 90px;
+    top: 15px;
+}
+.navBarSearchBar .inputContainer{
+    height: 100%;
+    width: 85%;
+    float: left;
+    border-radius: 5px 0px 0px 5px;
+    overflow: hidden;
+}
+.navBarSearchBar .buttonContainer{
+    height: 100%;
+    width: 15%;
+    float: right;
+    border-radius: 0px 5px 5px 0px;
+    overflow: hidden;
+}
+.navBarSearchBar input{
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+}
+.navBarSearchBar input:focus{
+    outline: none;
+}
+.navBarSearchBar button{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(167, 82,89);
+    color: white;
+    border: none;
+}
+
+.navBarSearchBar button:hover{
+    cursor: pointer;
+    background-color: rgb(170, 73, 81);
+}
+
+.navBarUserPhoto{
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    right: 30px;
+    top: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navBarUserPhotoButton{
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+}
+.navBarUserPhotoButton:focus{
+   outline: none;
+}
+.navBarUserPhotoButton:hover{
+    cursor: pointer;
+}
+.navBarUserMenu{
+    width: 160px;
+    background-color: rgb(40, 44, 52);
+    position: absolute;
+    right: 30px;
+    top: 45px;
+    box-shadow: 0px 0px 10px -3px rgba(0,0,0,0.75);
+    display: none;
+    border-radius: 0px 0px 5px 5px;
+    z-index: 11;
+}
+.userInfoMenu{
+    height: 60px;
+    width: 100%;
+    overflow: hidden;
+}
+.navBarUserMenuPhoto{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.navBarUserMenu h4{
+    position: absolute;
+    top: 15px;
+    left: 65px;
+    color: whitesmoke;
+}
+.navBarUserMenu p{
+    position: absolute;
+    top: 35px;
+    left: 65px;
+    color: whitesmoke;
+    font-size: 10pt !important;
+}
+.line{
+    width: 90%;
+    margin-left: 5%;
+    background-color: rgba(255, 255, 255, 0.103);
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.navBarUserMenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: right;
+}
+  
+.navBarUserMenu li a {
+    display: block;
+    color: whitesmoke;
+    padding: 8px 16px;
+    text-decoration: none;
+}  
+
+.navBarUserMenu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navBarHamMenu{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    background: none;
+    border: none;
+    color: whitesmoke;
+    display: none;
+}
+.navBarHamMenu:hover{
+    cursor: pointer;
+}
+.navBarHamMenu:focus{
+    outline: none;
+}
+
+@media only screen and (max-width: 500px) {
+    
+    .navBarHamMenu{
+        display: block;
+    }
+    
+}

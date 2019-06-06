@@ -1,0 +1,50 @@
+.SideBar{
+    position: absolute;
+    top: 60px;
+    bottom: 0px;
+    width: 200px;
+    background-color: rgb(34, 38, 43);
+    overflow: auto;
+}
+
+.SideBar button{
+    display: block;
+    padding: 6px 20px;
+    color: whitesmoke;
+    background-color: rgb(62,66,72);
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: none;
+}
+
+.SideBar button:hover{
+    background-color: rgba(62, 66, 72, 0.5);
+    cursor: pointer;
+    
+}
+.SideBar button:focus{
+    outline: none;    
+}
+
+.SideBar button i{
+    width: 20px;
+    margin-right: 5px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .SideBar{
+        width: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    
+    .SideBar{
+        display: none;
+    }
+    
+}
