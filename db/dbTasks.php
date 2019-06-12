@@ -9,7 +9,8 @@ class dbTasks extends Connection{
     function addTask($newTask){
         extract($newTask);
         $query = "call spAddTask($userID,'$taskTitle','$taskBody',$taskPriority);";
-        return $this -> query($query);
+        $data = $this -> fetchQuery($query);
+        return $data[0];
     }
 
     function getTask($taskID){

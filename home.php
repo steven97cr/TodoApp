@@ -34,7 +34,8 @@
             <?php
                 foreach($lnTasks -> getTasks($_SESSION['user']['idUser']) as $task){
                     ?>
-                    <div class="taskCard" >
+                    <div class="taskCard">
+                        <button id="deleteTaskBtn" value="<?=$task['idTask']?>"><i class="fas fa-trash-alt fa-lg"></i></button>
                         <div class="taskCardTitle"><h2><?=$task['taskTitle']?></h2></div>
                         <div class="taskCardBody"><p><?=$task['taskBody']?></p></div>
                         <div class="taskCardPriority">Prioridad: <span><?=$task['taskPriority']?></span></div>
@@ -73,32 +74,34 @@
             </div>
             <div class="modalProfile">
                 <button id="closeProfileModal" class="closeModalButton"><i class="fas fa-times fa-lg"></i></button>
-                <div class="col1">
-                    <div class="modalPhoto" style="background-image: url('assets/img/default.png')">
+                <form action="" id="submitProfile">
+                    <div class="col1">
+                        <div class="modalPhoto" name="userPhoto" style="background-image: url('assets/img/<?=$_SESSION['user']['userPhoto']?>')">
+                        </div>
+                        <input type="file" accept="image/*" id="userPhoto" method="post" enctype="multipart/form-data" name="userPhoto">
                     </div>
-                    <input type="file">
-                </div>
-                <div class="col2">
-                    <div class="inputContainer">
-                        <label for="fullNameInput">Nombre:</label>
-                        <input id="fullNameInput" type="text">
+                    <div class="col2">     
+                        <div class="inputContainer">
+                            <label for="fullNameInput">Nombre:</label>
+                            <input id="fullNameInput" name="fullName" type="text" value="<?=$_SESSION['user']['fullName']?>">
+                        </div>
+                        <div class="inputContainer">
+                            <label for="userNameInput">Apodo:</label>
+                            <input id="userNameInput" name="userName" type="text" value="<?=$_SESSION['user']['userName']?>">
+                        </div>
+                        <div class="inputContainer">
+                            <label for="userMailInput">Email:</label>
+                            <input id="userMailInput" name="userMail" type="text" value="<?=$_SESSION['user']['userMail']?>">
+                        </div>
+                        <div class="inputContainer">
+                            <label for="userPassInput">Contrasena:</label>
+                            <input id="userPassInput" name="userPass" type="text" value="<?=$_SESSION['user']['userPass']?>">
+                        </div>
+                        <div class="inputContainer">
+                            <button type="submit" id="submitProfileButton">Aceptar</button>
+                        </div> 
                     </div>
-                    <div class="inputContainer">
-                        <label for="userNameInput">Apodo:</label>
-                        <input id="userNameInput" type="text">
-                    </div>
-                    <div class="inputContainer">
-                        <label for="userMailInput">Email:</label>
-                        <input id="userMailInput" type="text">
-                    </div>
-                    <div class="inputContainer">
-                        <label for="userPassInput">Contrasena:</label>
-                        <input id="userPassInput" type="text">
-                    </div>
-                    <div class="inputContainer">
-                        <button type="button" id="submitProfileButton">Aceptar</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="alert">
@@ -112,6 +115,8 @@
     </script>
     <script src="assets/js/ui.js"></script>
     <script>
+    $('document').ready(()=>{
+
         $('#submitTaskButton').click(()=>{
             $.ajax({
                 url: 'routes/taskRoutes.php',
@@ -126,16 +131,78 @@
                 },
                 success: function(res){
                     console.log(res);
-                    if(res.rows == null){
-                        $('.alert').html('<i style="color: rgb(255,222,87)" class="fas fa-exclamation-triangle fa-2x"></i><p>Ocurrio un error!</p>');
+                    if(res.error){
+                        $('.alert').html('<i style="color: rgb(255,222,87)" class="fas \
+                         fa-exclamation-triangle fa-2x"></i><p>Ocurrio un error!</p>');
                         $('.alert').fadeIn(300).delay(3000).fadeOut(300);
                     }else{
-                        $('.alert').html('<i style="color: rgb(149,189,121)" class="fas fa-check fa-2x"></i><p>Operacion Exitosa!</p>');
+                        $('.taskContainer').append(
+                            `<div class="taskCard" >
+                                <div class="taskCardTitle"><h2>${res.taskTitle}</h2></div>
+                                <div class="taskCardBody"><p>${res.taskBody}</p></div>
+                                <div class="taskCardPriority">Prioridad: <span>${res.taskPriority}</span></div>
+                            </div>`
+                        );
+                        $('.alert').html('<i style="color: rgb(149,189,121)" class="fas \
+                         fa-check fa-2x"></i><p>Operacion Exitosa!</p>');
                         $('.alert').fadeIn(300).delay(3000).fadeOut(300);
                     }
                 }
             });
         });
+        $('#submitProfile').on('submit',()=>{
+            // e.preventDefault();
+            var form = $('#submitProfile');
+            var fd = new FormData(form[0]);
+            fd.append('action','editUser');
+            fd.append('userID',$('#userID').val());
+            $.ajax({
+                url: 'routes/userRoutes.php',
+                method: 'POST',
+                dataType: 'json',
+                processData: false,  
+                data: fd,
+                contentType: false,
+                success: function(res){
+                    console.log(res);
+                    if(res.rows == null){
+                        $('.alert').html('<i style="color: rgb(255,222,87)" class="fas \
+                         fa-exclamation-triangle fa-2x"></i><p>Ocurrio un error!</p>');
+                        $('.alert').fadeIn(300).delay(3000).fadeOut(300);
+                    }else{
+                        $('.alert').html('<i style="color: rgb(149,189,121)" class="fas \
+                         fa-check fa-2x"></i><p>Operacion Exitosa!</p>');
+                        $('.alert').fadeIn(300).delay(3000).fadeOut(300);
+                    }
+                }
+            });
+        });
+        $('document').on('click','#deleteTaskBtn',()=>{
+            console.log('idddd')
+            $.ajax({
+                url: 'routes/taskRoutes.php',
+                method: 'POST',
+                dataType: 'json', 
+                data: { 
+                    taskID: $(this).val(),
+                    action: 'deleteTask'
+                },
+                success: function(res){
+                    console.log(res);
+                    if(res.rows == null){
+                        $('.alert').html('<i style="color: rgb(255,222,87)" class="fas \
+                         fa-exclamation-triangle fa-2x"></i><p>Ocurrio un error!</p>');
+                        $('.alert').fadeIn(300).delay(3000).fadeOut(300);
+                    }else{
+                        $('.alert').html('<i style="color: rgb(149,189,121)" class="fas \
+                         fa-check fa-2x"></i><p>Operacion Exitosa!</p>');
+                        $('.alert').fadeIn(300).delay(3000).fadeOut(300);
+                    }
+                }
+            });
+        });
+
+    });
     </script>
 </body>
 </html>

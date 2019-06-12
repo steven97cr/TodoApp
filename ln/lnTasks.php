@@ -15,5 +15,9 @@ class lnTasks{
     function getTasks($idUser){
         return $this -> dbTasks -> getTasks($idUser);
     }
+
+    function deleteTask($idTask){
+        return $this -> dbTasks -> deleteTasks($idTask);
+    }
 }
 ?>

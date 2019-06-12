@@ -23,7 +23,7 @@
                 break;
             
             case "getTasks":
-                exit(json_encode($lnTasks -> getTasks($_POST)));
+                exit(json_encode($lnTasks -> getTasks($_POST['userID'])));
                 break;
     
         }

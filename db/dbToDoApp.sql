@@ -50,6 +50,26 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE spEditUser(
+	in userID int,
+	in fullName varchar(100),
+    in userName varchar(50),
+    in userPhoto varchar(100),
+    in userMail varchar(100),
+    in userPass varchar(30)
+)
+BEGIN
+	update users u set
+		u.fullName = fullName,
+        u.userName = userName,
+        u.userPhoto = userPhoto,
+        u.userMail = userMail,
+        u.userPass = userPass
+	where u.idUser = userID;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE spGetTask(
 	in taskID int
 )
@@ -77,6 +97,7 @@ CREATE PROCEDURE  spAddTask(
 BEGIN
 	insert into task(idUser, taskTitle, taskBody, taskPriority)
     values(userID, taskTitle, taskBody, taskPriority);
+    select * from task ORDER BY idTask DESC LIMIT 1;
 END //
 DELIMITER ;
 

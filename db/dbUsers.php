@@ -21,5 +21,12 @@ class dbUsers extends Connection{
         return $data;
     }
 
+    function editUser($editUser){
+        extract($editUser);
+        $query = "call spEditUser($userID,'$fullName','$userName','$userPhoto','$userMail','$userPass');";
+        $data = $this -> query($query);
+        return $data;
+    }
+
 }
 ?>
